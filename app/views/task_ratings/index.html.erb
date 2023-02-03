@@ -1,0 +1,29 @@
+<h1>Reviews for <%= link_to @task.title, @task %></h1>
+<ul class = "reviews">
+  <% @ratings.each do |rating| %>
+    <li>
+        <p>
+          <% unless rating.blank? %>
+          <%= rating.name %>
+          <% end %>
+        <span class="date">
+        <%= time_ago_in_words(rating.created_at) %> ago
+        </span>
+        </p>
+        <%= render "shared/stars", percent: rating.stars_as_percent %>
+        <p>
+          <%= rating.comment %>
+        </p>
+
+       <%= link_to "Edit this Rating", edit_task_task_rating_path(@task, rating), class: "button" %>
+           <%= link_to "Delete this Rating", task_task_rating_path(@task, rating), class: "button",
+        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    </li>
+  <% end %>
+</ul>
+<section class="movie-details">
+  <div class="details">
+    <%= link_to "Leave a Rating", new_task_task_rating_path(@task), class: "review" %>
+    <%= link_to "Back", task_path(@task), class: "review" %>
+  </div>
+</section>

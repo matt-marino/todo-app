@@ -1,0 +1,6 @@
+<h1>Editing Rating</h1>
+
+<%= render "form", object: [task: @task, rating: @rating] %>
+<section class="admin">
+    <%= link_to "Back", task_task_ratings_path(@task), class: "button" %>
+</section>

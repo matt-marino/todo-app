@@ -1,0 +1,14 @@
+<%= form_with(model: @task) do |f| %>
+    <%= render "shared/errors", object: @task %>
+    <%= f.label :title %>
+    <%= f.text_field :title, autofocus: true %>
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 10 %>
+    <%= f.label :priority %>
+    <%= f.select(:priority, Task::PRIORITY, prompt: "Choose one")  %>
+    <%= f.label :due_date %>
+    <%= f.date_field :due_date, {class: "date"} %>
+    <%= f.label :completed %>
+    <%= f.check_box :completed %>
+    <%= f.submit %>
+<% end %>

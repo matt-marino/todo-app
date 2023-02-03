@@ -1,0 +1,8 @@
+<h1>Editing <%= @task.title %></h1>
+
+<%= render "form", task: @task %>
+<section class="movie-details">
+    <div class="details">
+        <%= link_to "Go Back", task_path(@task), class: "review" %>
+    </div>
+</section>
