@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  before_action :require_signin, except: [:index, :show]
+  before_action :require_admin, except: [:index, :show]
   def index
     @tasks = Task.all
   end
@@ -49,5 +51,3 @@ class TasksController < ApplicationController
       .permit(:title, :description, :priority, :completed, :due_date)
   end
 end
-# you are on the One-to-Many: Forms section of the course
-# /rails/info/routes is how you access what is available in the routes

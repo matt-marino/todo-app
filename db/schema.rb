@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_03_153523) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_10_042901) do
   create_table "task_ratings", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.integer "stars"
@@ -37,6 +37,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_153523) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
+    t.boolean "admin", default: false
   end
 
   add_foreign_key "task_ratings", "tasks"
