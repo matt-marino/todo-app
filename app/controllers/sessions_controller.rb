@@ -10,8 +10,10 @@ class SessionsController < ApplicationController
       User.find_by(username: params[:email_or_username])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to((session[:intended_url] || user),
-        notice: "Welcome back, #{user.name}!")
+      redirect_to(
+        (session[:intended_url] || user),
+        notice: "Welcome back, #{user.name}!",
+      )
       session[:intended_url] = nil
       redirect_to(user, notice: "Welcome back, #{user.name}!")
     else
@@ -22,7 +24,10 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to(movies_url, status: :see_other,
-      notice: "You're now signed out!")
+    redirect_to(
+      movies_url,
+      status: :see_other,
+      notice: "You're now signed out!",
+    )
   end
 end

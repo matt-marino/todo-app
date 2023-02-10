@@ -43,8 +43,11 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to(root_url, status: :see_other,
-      alert: "Account successfully deleted!")
+    redirect_to(
+      root_url,
+      status: :see_other,
+      alert: "Account successfully deleted!",
+    )
   end
 
   private
