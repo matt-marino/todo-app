@@ -2,13 +2,11 @@
 # frozen_string_literal: true
 
 module TasksHelper
-  def my_method
-    # do any calculations needed to help with tasks here
-    # example if we added in a cost for each task:
-    # if task.flop?
-    #   "Not worth it!"
-    # else
-    #   number_to_currency(task.total_gross, precision: 0)
-    # end
+  def complete_or_incomplete_checkbox(task)
+    if task.completed?
+      check_box("Completed", task_path(task), method: :delete)
+    else
+      check_box("Completed", tasks_path(task))
+    end
   end
 end

@@ -8,7 +8,11 @@
     <%= f.select(:priority, Task::PRIORITY, prompt: "Choose one")  %>
     <%= f.label :due_date %>
     <%= f.date_field :due_date, {class: "date"} %>
-    <%= f.label :completed %>
+    <p><%= f.label :groups %></p>
+    <div class="checkboxes">
+    <%= f.collection_check_boxes(:group_ids, Group.order(:name), :id, :name) %>
+    </div>
+    <div style="padding-top: 10px;"><%= f.label :completed %></div>
     <%= f.check_box :completed %>
     <%= f.submit %>
 <% end %>

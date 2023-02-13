@@ -10,6 +10,11 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    @fans = @task.fans
+    @groups = @task.groups.order(:name)
+    if current_user
+      @favorite = current_user.favorites.find_by(task_id: @task.id)
+    end
   end
 
   def edit
@@ -48,6 +53,6 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task)
-      .permit(:title, :description, :priority, :completed, :due_date)
+      .permit(:title, :description, :priority, :completed, :due_date, group_ids: [])
   end
 end

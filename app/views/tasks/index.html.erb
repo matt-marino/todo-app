@@ -1,26 +1,54 @@
 <h1>TODO List</h1>
+<h4>In Progress</h4>
 <ul>
     <% @tasks.each do |task| %>
-        <section class="movie">
-            <div class ="summary">
-                <li>
-                    <p>Task: <%= link_to task.title, task %>,</p>
-                    <span class="stars">
-                        <% if task.average_stars_as_percent == 0.0 %>
-                            <strong>No Ratings Yet</strong>
-                        <% else%>
-                            <%= render "shared/stars", percent: task.average_stars_as_percent %>
-                        <% end %>
-                    </span>
-                    <p>Priority: <%= task.priority %>,</p>
-                    <p>Completed: <%= task.completed %>,</p>
-                    <p>Description: <%= truncate(task.description, length: 40, separator: ' ') %></p>
-                    <p>Due Date: <%= task.due_date %></p>
-                </li>
-            </div>
-        </section>
+        <% if task.completed == false %>
+            <section class="movie">
+                <div class ="summary">
+                    <li>
+                        <p>Task: <%= link_to task.title, task %>,</p>
+                        <span class="stars">
+                            <% if task.average_stars_as_percent == 0.0 %>
+                                <strong>No Ratings Yet</strong>
+                            <% else%>
+                                <%= render "shared/stars", percent: task.average_stars_as_percent %>
+                            <% end %>
+                        </span>
+                        <p>Priority: <%= task.priority %>,</p>
+                        <p>Completed: <%= task.completed %></p>
+                        <p>Description: <%= truncate(task.description, length: 40, separator: ' ') %></p>
+                        <p>Due Date: <%= task.due_date %></p>
+                    </li>
+                </div>
+            </section>
+        <% end %>
     <% end %>
 </ul>
+<h4>Completed</h4>
+<ul>
+    <% @tasks.each do |task| %>
+        <% if task.completed == true %>
+            <section class="movie">
+                <div class ="summary">
+                    <li>
+                        <p>Task: <%= link_to task.title, task %>,</p>
+                        <span class="stars">
+                            <% if task.average_stars_as_percent == 0.0 %>
+                                <strong>No Ratings Yet</strong>
+                            <% else%>
+                                <%= render "shared/stars", percent: task.average_stars_as_percent %>
+                            <% end %>
+                        </span>
+                        <p>Priority: <%= task.priority %>,</p>
+                        <p>Completed: <%= task.completed %>,</p>
+                        <p>Description: <%= truncate(task.description, length: 40, separator: ' ') %></p>
+                        <p>Due Date: <%= task.due_date %></p>
+                    </li>
+                </div>
+            </section>
+        <% end %>
+    <% end %>
+    </ul>
 <% if current_user_admin? %>
     <section class="admin">
     <%= link_to "Add New Task", new_task_path, class: "button" %>

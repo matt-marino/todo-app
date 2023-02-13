@@ -1,0 +1,26 @@
+<section class="movie-details">
+  <div class="details">
+    <h1>Group name: <%= @group.name %></h1>
+    <% if @tasks.present? %>
+      <h4>Associated Tasks</h4>
+      <ul>
+        <% @tasks.each do |t| %>
+          <li><%= t.title %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <div class="image">
+    <% if current_user_admin? %>
+      <section class="user">
+        <div class="actions">
+          <%= link_to "Edit", edit_group_path(@group), class: "button edit" %>
+          <%= link_to "Delete", group_path(@group), class: "button delete",
+            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</section>
+<section class="admin">
+  <%= link_to "Back", groups_path, class: "button"%>
+</section>

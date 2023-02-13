@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  has_many :task_ratings, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_tasks, through: :favorites, source: :task
   has_secure_password
   validates :name, presence: true
   validates :email,

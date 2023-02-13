@@ -1,0 +1,17 @@
+<h1>Groups</h1>
+<ul>
+    <% @groups.each do |group| %>
+        <section class="movie">
+            <div class ="summary">
+                <li>
+                    <p><%= link_to group.name, group %></p>
+                </li>
+            </div>
+        </section>
+    <% end %>
+</ul>
+<% if current_user_admin? %>
+    <section class="admin">
+    <%= link_to "Add New Group", new_group_path, class: "button" %>
+    </section>
+<% end %>

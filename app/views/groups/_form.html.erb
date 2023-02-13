@@ -1,0 +1,8 @@
+<%= form_with(model: @group) do |f| %>
+  <%= render "shared/errors", object: @group %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, autofocus: true %>
+
+  <%= f.submit %>
+<% end %>

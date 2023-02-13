@@ -1,7 +1,5 @@
 <%= form_with(model:[@task, @rating]) do |f| %>
 <%= render "shared/errors", object: @rating %>
-  <%= f.label :name %>
-  <%= f.text_field :name, autofocus: true %>
 
   <%= f.label :stars %>
   <% TaskRating::STARS.each do |star|%>

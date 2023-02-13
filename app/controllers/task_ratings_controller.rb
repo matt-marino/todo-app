@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 class TaskRatingsController < ApplicationController
+  before_action :require_signin
   before_action :set_rating, only: [:edit, :destroy]
   before_action :set_task, only: [:edit, :index, :new, :create]
   def index
@@ -38,6 +39,7 @@ class TaskRatingsController < ApplicationController
   def create
     @task = Task.find(params[:task_id])
     @rating = @task.task_ratings.new(task_rating_params)
+    @rating.user = current_user
     if @rating.save
       redirect_to(task_task_ratings_path(@task), notice: "Thanks for your rating!")
     else
@@ -54,7 +56,7 @@ class TaskRatingsController < ApplicationController
   private
 
   def task_rating_params
-    params.require(:task_rating).permit(:name, :comment, :stars)
+    params.require(:task_rating).permit(:comment, :stars)
   end
 
   def set_task

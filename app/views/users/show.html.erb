@@ -15,7 +15,37 @@
           data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
         <% end %>
       <div>
+          <% if @ratings.present? %>
+    <h3>Reviews</h3>
+    <% @ratings.each do |rating| %>
+      <div class="review">
+        <div class="details">
+          <span class="title">
+            <%= link_to rating.task.title, rating.task %>
+          </span>
+          <%= pluralize(rating.stars, 'star') %>
+          <span class="date">
+            <%= time_ago_in_words(rating.created_at) %> ago
+          </span>
+          <p>
+            <%= rating.comment %>
+          </p>
+        </div>
+      </div>
     <% end %>
+  <% end %>
+  <% if @favorite_tasks.present? %>
+  <h3>Favorite Tasks</h3>
+  <div class="favorite-movies">
+    <% @favorite_tasks.each do |task| %>
+    <ul>
+      <li>
+        <%= link_to (task.title), task %>
+      </li>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
 </section>
 <section class="movie-details">
     <div class="details">

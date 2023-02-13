@@ -18,6 +18,25 @@
         <td><%= @task.completed %></td>
       </tr>
     </table>
+    <% if @groups.present? %>
+      <h4>Groups</h4>
+      <ul>
+        <% @groups.each do |g| %>
+          <li><%= link_to g.name, group_path(g) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if current_user_admin? %>
+    <div style="padding-bottom: 15px;"><%= link_to "Add a new Group", new_group_path(@group), class: "review"%></div>
+    <% end %>
+    <div class="image">
+      <% if current_user %>
+      <%= fave_or_unfave_button(@task, @favorite) %>
+      <div class="count">
+        <%= @fans.size %>
+      </div>
+      <% end %>
+    </div>
     <%= link_to "Leave a Rating", new_task_task_rating_path(@task), class: "review" %>
     <% if current_user_admin? %>
       <section class="user">
@@ -30,6 +49,19 @@
     <% end %>
   </div>
 </section>
+    <aside>
+      <% if @fans.present? %>
+        <h4>Fans</h4>
+        <ul>
+          <% @fans.each do |user| %>
+            <li>
+              <%= profile_image(user, size: 35) %>
+              <%= link_to user.name, user %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </aside>
 <section class="admin">
   <%= link_to "Back", root_path, class: "button"%>
 </section>

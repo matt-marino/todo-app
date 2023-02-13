@@ -11,6 +11,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @ratings = @user.task_ratings
+    @favorite_tasks = @user.favorite_tasks
   end
 
   def new

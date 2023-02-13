@@ -61,3 +61,10 @@ Task.create!([{
   due_date: "2022-02-02",
   description: "Your clothes smell, please wash them",
 }])
+Group.create(name: "Indoor")
+Group.create(name: "Outdoor")
+Group.create(name: "Menial")
+Group.create(name: "Extensive")
+Group.create(name: "Taxing")
+Group.create(name: "Wishlist")
+Group.create(name: "Weekly Chores")

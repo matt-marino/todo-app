@@ -3,6 +3,11 @@
 
 class Task < ApplicationRecord
   has_many :task_ratings, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :fans, through: :favorites, source: :user
+  has_many :critics, through: :ratings, source: :user
+  has_many :classifications, dependent: :destroy
+  has_many :groups, through: :classifications
   validates :title, :priority, :due_date, presence: true
   validates :description, length: { minimum: 25 }, presence: true
   validates :completed, inclusion: { in: [true, false] }

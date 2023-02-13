@@ -4,7 +4,8 @@
     <li>
         <p>
           <% unless rating.blank? %>
-          <%= rating.name %>
+          <%= profile_image(rating.user, 35) %>
+          <%= link_to rating.user.name, rating.user %>
           <% end %>
         <span class="date">
         <%= time_ago_in_words(rating.created_at) %> ago
