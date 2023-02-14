@@ -11,4 +11,5 @@ Rails.application.routes.draw do
     resources :task_ratings
     resources :favorites, only: [:create, :destroy]
   end
+  get "tasks/filter/:filter" => "tasks#index", as: :filtered_tasks
 end

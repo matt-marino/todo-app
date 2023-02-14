@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   before_action :require_signin, except: [:index, :show]
   before_action :require_admin, except: [:index, :show]
   def index
-    @tasks = Task.all
+    @tasks = Task.send(tasks_filter)
   end
 
   def show
@@ -54,5 +54,13 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task)
       .permit(:title, :description, :priority, :completed, :due_date, group_ids: [])
+  end
+
+  def tasks_filter
+    if params[:filter].in?(["upcoming", "recent", "recent_results", "completed", "incomplete"])
+      params[:filter]
+    else
+      :all_tasks
+    end
   end
 end

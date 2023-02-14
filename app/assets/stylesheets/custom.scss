@@ -16,6 +16,7 @@ $red: #dc3545;
 
 $secondary-text-color: $medium-gray;
 $accent-color: $orange;
+$primary-link-color: $black;
 $secondary-link-color: $light-blue;
 $border-color: $light-gray;
 $error-color: $red;
@@ -53,7 +54,7 @@ a:hover {
 // Header and Nav
 
 header {
-  background-color: $primary;
+  background-color: $light-gray;
   padding: 0.5rem;
   margin-bottom: 3rem;
 
@@ -66,11 +67,11 @@ header {
     }
 
     a {
-      color: $secondary-link-color;
+      color: $primary-link-color;
     }
 
     a.button {
-      @extend .btn, .btn-outline-secondary;
+      @extend .btn, .btn-outline-primary, .btn-outline-secondary;
     }
 
     ul {
@@ -92,13 +93,13 @@ header {
 
         a {
           @extend .nav-link;
-          color: $secondary-link-color;
+          color: $primary-link-color;
           padding-bottom: 1px;
         }
 
         a:hover:not(.button),
         a.active {
-          color: $off-white;
+          color: $black;
           text-decoration: none;
           border-bottom: 1px solid $off-white;
         }
@@ -106,8 +107,8 @@ header {
         .button,
         button {
           margin-right: 10px;
-          color: $off-white;
-          border-color: $off-white;
+          color: $black;
+          border-color: $black;
         }
 
         .button:hover,
@@ -228,7 +229,7 @@ section.movie-details {
     }
 
     button[type="submit"] {
-      @extend .btn, .btn-outline-secondary;
+      @extend .btn, .btn-outline-primary, .btn-outline-secondary;
       border-color: #cdd3d8;
       border-right: none;
       border-top-right-radius: 0;
@@ -293,6 +294,10 @@ section.user {
 
     .button {
       @extend .btn, .btn-sm;
+
+      &.new {
+        @extend .btn-outline-primary;
+      }
 
       &.edit {
         @extend .btn-outline-secondary;

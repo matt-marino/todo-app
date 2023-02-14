@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  has_many :task_ratings, dependent: :destroy
+  has_many :task_ratings, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :fans, through: :favorites, source: :user
   has_many :critics, through: :ratings, source: :user
@@ -22,8 +22,10 @@ class Task < ApplicationRecord
     (average_stars / 5.0) * 100
   end
 
-  # example of a custom method
-  # def flop?
-  #   total_gross.blank? || total_gross < 100
-  # end
+  scope(:recent, -> { where("created_at <= ?", 1.week.ago).order(created_at: :desc) })
+  scope(:upcoming, -> { where("due_date > ?", Time.now).order(due_date: :asc) })
+  scope(:recent_results, ->(max = 5) { recent.limit(max) })
+  scope(:completed, -> { where(completed: true) })
+  scope(:incomplete, -> { where(completed: false) })
+  scope(:all_tasks, -> { order(:title) })
 end
