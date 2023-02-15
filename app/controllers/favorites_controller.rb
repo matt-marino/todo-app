@@ -23,6 +23,6 @@ class FavoritesController < ApplicationController
   private
 
   def set_task
-    @task = Task.find(params[:task_id])
+    @task = Task.find_by!(slug: params[:task_id])
   end
 end

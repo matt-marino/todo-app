@@ -4,12 +4,13 @@
 class TasksController < ApplicationController
   before_action :require_signin, except: [:index, :show]
   before_action :require_admin, except: [:index, :show]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
     @tasks = Task.send(tasks_filter)
   end
 
   def show
-    @task = Task.find(params[:id])
+    @task = Task.find_by!(slug: params[:id])
     @fans = @task.fans
     @groups = @task.groups.order(:name)
     if current_user
@@ -18,11 +19,9 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
     if @task.update(task_params)
       redirect_to(@task, notice: "Task successfully updated!")
     else
@@ -44,7 +43,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
     redirect_to(tasks_url, status: :see_other, notice: "Task successfully deleted!")
   end
@@ -62,5 +60,9 @@ class TasksController < ApplicationController
     else
       :all_tasks
     end
+  end
+
+  def set_task
+    @task = Task.find_by!(slug: params[:id])
   end
 end

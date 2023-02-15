@@ -2,12 +2,12 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
+  before_action :set_group, only: [:show, :edit, :update, :destroy]
   def index
     @groups = Group.all
   end
 
   def show
-    @group = Group.find(params[:id])
     @tasks = @group.tasks.order(:title)
     if current_user
       # @favorite = current_user.favorites.find_by(group_id: @group.id)
@@ -15,11 +15,9 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    @group = Group.find(params[:id])
   end
 
   def update
-    @group = Group.find(params[:id])
     if @group.update(group_params)
       redirect_to(@group, notice: "Group successfully updated!")
     else
@@ -41,7 +39,6 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    @group = Group.find(params[:id])
     @group.destroy
     redirect_to(groups_url, status: :see_other, notice: "Group successfully deleted!")
   end
@@ -51,5 +48,9 @@ class GroupsController < ApplicationController
   def group_params
     params.require(:group)
       .permit(:name, task_ids: [])
+  end
+
+  def set_group
+    @group = Group.find_by!(slug: params[:id])
   end
 end

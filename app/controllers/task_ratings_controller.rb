@@ -4,30 +4,25 @@
 class TaskRatingsController < ApplicationController
   before_action :require_signin
   before_action :set_rating, only: [:edit, :destroy]
-  before_action :set_task, only: [:edit, :index, :new, :create]
+  before_action :set_task, only: [:edit, :show, :index, :new, :create, :update]
   def index
-    @task = Task.find(params[:task_id])
     @ratings = @task.task_ratings
   end
 
   def show
     @ratings = TaskRating.find(params[:id])
-    @task = Task.find(params[:task_id])
     @rating = @task.task_ratings.new
   end
 
   def new
-    @task = Task.find(params[:task_id])
     @rating = @task.task_ratings.new
   end
 
   def edit
-    @task = Task.find(params[:task_id])
     @rating = @task.task_ratings.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:task_id])
     @rating = @task.task_ratings.find(params[:id])
     if @rating.update(task_rating_params)
       redirect_to(task_task_ratings_path(@task), notice: "Rating successfully updated!")
@@ -37,7 +32,6 @@ class TaskRatingsController < ApplicationController
   end
 
   def create
-    @task = Task.find(params[:task_id])
     @rating = @task.task_ratings.new(task_rating_params)
     @rating.user = current_user
     if @rating.save
@@ -49,7 +43,6 @@ class TaskRatingsController < ApplicationController
 
   def destroy
     @rating.destroy
-    @task = Task.find(params[:task_id])
     redirect_to(task_task_ratings_path(@task), status: :see_other, notice: "Rating successfully deleted!")
   end
 
@@ -60,7 +53,7 @@ class TaskRatingsController < ApplicationController
   end
 
   def set_task
-    @task = Task.find(params[:task_id])
+    @task = Task.find_by!(slug: params[:task_id])
   end
 
   def set_rating

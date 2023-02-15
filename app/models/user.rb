@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  before_save :format_username
+  before_save :set_slug
   has_many :task_ratings, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_tasks, through: :favorites, source: :task
@@ -19,6 +21,18 @@ class User < ApplicationRecord
 
   def gravatar_id
     Digest::MD5.hexdigest(email.downcase)
+  end
+
+  def format_username
+    self.username = username.downcase
+  end
+
+  def set_slug
+    self.slug = username.parameterize
+  end
+
+  def to_param
+    slug
   end
 
   scope(:by_name, -> { order(:name) })

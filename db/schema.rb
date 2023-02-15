@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_13_022646) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_15_043216) do
   create_table "classifications", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "task_id", null: false
     t.bigint "group_id", null: false
@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_022646) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
   end
 
   create_table "task_ratings", charset: "utf8mb4", force: :cascade do |t|
@@ -53,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_022646) do
     t.datetime "updated_at", null: false
     t.date "due_date"
     t.text "description"
+    t.string "slug"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
@@ -63,6 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_022646) do
     t.datetime "updated_at", null: false
     t.string "username"
     t.boolean "admin", default: false
+    t.string "slug"
   end
 
   add_foreign_key "classifications", "groups"

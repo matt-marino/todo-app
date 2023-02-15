@@ -9,7 +9,7 @@
                 <section class="movie">
                     <div class ="summary">
                         <li>
-                            <p>Task: <%= link_to task.title, task %>,</p>
+                            <p>Task: <%= link_to task.title, task_path(task) %>,</p>
                             <span class="stars">
                                 <% if task.average_stars_as_percent == 0.0 %>
                                     <strong>No Ratings Yet</strong>
@@ -24,6 +24,8 @@
                             <section class="user">
                                 <div class="actions">
                                     <%= link_to "Edit this task", edit_task_path(task), class: "button new" %>
+                                              <%= link_to "Delete", task_path(task), class: "button delete",
+                                              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
                                 </div>
                             </section>
                         </li>
@@ -57,6 +59,8 @@
                         <section class="user">
                             <div class="actions">
                                 <%= link_to "Edit this task", edit_task_path(task), class: "button new" %>
+                                    <%= link_to "Delete", task_path(task), class: "button delete",
+                                        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
                             </div>
                         </section>
                     </li>

@@ -5,12 +5,12 @@ class UsersController < ApplicationController
   before_action :require_signin, except: [:new, :create]
   before_action :require_correct_user, only: [:edit, :update, :destroy]
   before_action :require_admin, only: [:destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   def index
     @users = User.not_admins
   end
 
   def show
-    @user = User.find(params[:id])
     @ratings = @user.task_ratings
     @favorite_tasks = @user.favorite_tasks
   end
@@ -30,11 +30,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to(@user, notice: "User successfully updated!")
     else
@@ -43,7 +41,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     redirect_to(
       root_url,
@@ -60,9 +57,13 @@ class UsersController < ApplicationController
   end
 
   def require_correct_user
-    @user = User.find(params[:id])
+    @user = User.find_by!(slug: params[:id])
     unless current_user == @user
       redirect_to(root_url, status: :see_other) unless current_user?(@user)
     end
+  end
+
+  def set_user
+    @user = User.find_by!(slug: params[:id])
   end
 end
